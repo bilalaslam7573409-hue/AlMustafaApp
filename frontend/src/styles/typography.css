@@ -1,0 +1,14 @@
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Poppins", sans-serif;
+  color: var(--primary-green);
+}
+
+p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-main);
+}
+
+strong {
+  color: var(--primary-gold);
+}

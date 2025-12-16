@@ -1,0 +1,44 @@
+body {
+  background-color: #f7fff7;
+  font-family: 'Poppins', 'Noto Naskh Arabic', sans-serif;
+  color: #0b3d0b;
+  margin: 0;
+  padding: 0;
+}
+
+button, .MuiButton-root {
+  background-color: #d4af37 !important;
+  color: #0b3d0b !important;
+  font-weight: bold !important;
+  border-radius: 10px !important;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background-color: #0b3d0b !important;
+  color: #d4af37 !important;
+}
+
+.MuiAppBar-root {
+  background-color: #0b3d0b !important;
+  color: #d4af37 !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.MuiBottomNavigation-root {
+  background-color: #0b3d0b !important;
+  border-top: 2px solid #d4af37;
+}
+
+.MuiBottomNavigationAction-root {
+  color: #d4af37 !important;
+}
+
+.MuiBottomNavigationAction-root.Mui-selected {
+  color: #ffffff !important;
+}
+
+video {
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}

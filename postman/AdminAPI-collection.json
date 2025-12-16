@@ -1,0 +1,56 @@
+{
+  "info": {
+    "name": "AlMustafa Admin API",
+    "_postman_id": "almustafa-admin-001",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get country stats (JSON)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-admin-key",
+            "value": "CHANGE_ME_ADMIN_KEY"
+          }
+        ],
+        "url": {
+          "raw": "https://us-central1-al-mustafa-onlin-quran-academy.cloudfunctions.net/adminApi/country-stats",
+          "protocol": "https",
+          "host": [
+            "us-central1-al-mustafa-onlin-quran-academy.cloudfunctions.net"
+          ],
+          "path": [
+            "adminApi",
+            "country-stats"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Download countries CSV",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-admin-key",
+            "value": "CHANGE_ME_ADMIN_KEY"
+          }
+        ],
+        "url": {
+          "raw": "https://us-central1-al-mustafa-onlin-quran-academy.cloudfunctions.net/adminApi/download/countries",
+          "protocol": "https",
+          "host": [
+            "us-central1-al-mustafa-onlin-quran-academy.cloudfunctions.net"
+          ],
+          "path": [
+            "adminApi",
+            "download",
+            "countries"
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+import React, { useEffect, useState } from "react";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "./firebase";
+import Login from "./components/Login";
+import {
+  Box,
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Avatar,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
+
+function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (u) => setUser(u));
+    return () => unsub();
+  }, []);
+
+  if (!user) return <Login onLogin={(u) => setUser(u)} />;
+
+  const sidebarItems = [
+    "Dashboard",
+    "My Classes",
+    "Students",
+    "Teachers",
+    "Schedule",
+    "Payments",
+  ];
+
+  return (
+    <Box sx={{ display: "flex", bgcolor: "#f6fff6", minHeight: "100vh" }}>
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: 240,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: 240,
+            boxSizing: "border-box",
+            bgcolor: "#0b3d0b",
+            color: "white",
+            borderRight: "3px solid #d4af37",
+          },
+        }}
+      >
+        <Toolbar>
+          <Typography variant="h6" sx={{ color: "#d4af37", fontWeight: "bold" }}>
+            🕌 Al Mustafa
+          </Typography>
+        </Toolbar>
+        <List>
+          {sidebarItems.map((text) => (
+            <ListItem button key={text}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+
+      <Box component="main" sx={{ flexGrow: 1 }}>
+        <AppBar position="static" sx={{ bgcolor: "#0b3d0b" }}>
+          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography variant="h6" sx={{ color: "#d4af37" }}>
+              🌙 Al Mustafa Online Quran Academy
+            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Avatar src={user.photoURL} alt={user.displayName} />
+              <Typography variant="body1">{user.displayName}</Typography>
+              <Button
+                onClick={() => signOut(auth)}
+                variant="contained"
+                sx={{ bgcolor: "#d4af37", color: "#0b3d0b", fontWeight: "bold" }}
+              >
+                Logout
+              </Button>
+            </Box>
+          </Toolbar>
+        </AppBar>
+
+        <Box sx={{ p: 4 }}>
+          <Typography variant="h4" gutterBottom sx={{ color: "#0b3d0b", fontWeight: "bold" }}>
+            Welcome, {user.displayName} 🌙
+          </Typography>
+          <Typography variant="body1" sx={{ color: "#333", mb: 3 }}>
+            This is your Quran Academy Dashboard. Manage your classes, students, and schedule easily.
+          </Typography>
+
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+              gap: 3,
+            }}
+          >
+            <Box sx={{ bgcolor: "white", p: 3, borderRadius: 3, boxShadow: 2 }}>
+              <Typography variant="h6" sx={{ color: "#0b3d0b", mb: 1 }}>
+                📖 My Classes
+              </Typography>
+              <Typography>View and manage all your Quran lessons.</Typography>
+            </Box>
+
+            <Box sx={{ bgcolor: "white", p: 3, borderRadius: 3, boxShadow: 2 }}>
+              <Typography variant="h6" sx={{ color: "#0b3d0b", mb: 1 }}>
+                👨‍🎓 Students
+              </Typography>
+              <Typography>Track student progress and attendance.</Typography>
+            </Box>
+
+            <Box sx={{ bgcolor: "white", p: 3, borderRadius: 3, boxShadow: 2 }}>
+              <Typography variant="h6" sx={{ color: "#0b3d0b", mb: 1 }}>
+                💰 Payments
+              </Typography>
+              <Typography>Check fees and payment records.</Typography>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
+  );
+}
+
+export default App;

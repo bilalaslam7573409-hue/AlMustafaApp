@@ -1,0 +1,132 @@
+// ✅ D:\AlMustafaApp\frontend\src\components\Theme\SmartTheme.js
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { IconButton, Tooltip, Switch, Typography, Box } from "@mui/material";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+
+export default function SmartTheme() {
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [autoMode, setAutoMode] = useState(localStorage.getItem("autoMode") === "true");
+  const [azanNotify, setAzanNotify] = useState(localStorage.getItem("azanNotify") === "true");
+  const [city, setCity] = useState(localStorage.getItem("city") || "");
+  const [prayerTimes, setPrayerTimes] = useState(null);
+  const [popup, setPopup] = useState(null);
+
+  // 🕌 Fetch prayer times
+  useEffect(() => {
+    if (!city) return;
+    const fetchTimes = async () => {
+      try {
+        const res = await axios.get(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=Pakistan&method=2`);
+        setPrayerTimes(res.data.data.timings);
+      } catch (err) {
+        console.error("Prayer time fetch error:", err);
+      }
+    };
+    fetchTimes();
+  }, [city]);
+
+  // 🕓 Auto Theme + Azan Reminder
+  useEffect(() => {
+    if (!autoMode || !prayerTimes) return;
+
+    const now = new Date();
+    const currentTime = now.getHours() * 60 + now.getMinutes();
+    const toMinutes = (t) => {
+      const [h, m] = t.split(":").map(Number);
+      return h * 60 + m;
+    };
+
+    const sunrise = toMinutes(prayerTimes.Sunrise);
+    const maghrib = toMinutes(prayerTimes.Maghrib);
+
+    if (currentTime >= maghrib || currentTime < sunrise) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+
+    if (azanNotify) {
+      const checkPrayer = () => {
+        const prayers = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
+        prayers.forEach((name) => {
+          const diff = Math.abs(currentTime - toMinutes(prayerTimes[name]));
+          if (diff <= 1) { // within 1 minute
+            setPopup(`🕌 ${name} time has started.`);
+            setTimeout(() => setPopup(null), 8000);
+          }
+        });
+      };
+      checkPrayer();
+    }
+  }, [prayerTimes, autoMode, azanNotify]);
+
+  // 🧠 Apply Theme
+  useEffect(() => {
+    document.body.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  useEffect(() => {
+    localStorage.setItem("autoMode", autoMode);
+    localStorage.setItem("azanNotify", azanNotify);
+  }, [autoMode, azanNotify]);
+
+  // 🌍 Ask for City Once
+  useEffect(() => {
+    if (!city) {
+      const userCity = prompt("اپنا شہر درج کریں (مثلاً: Bhalwal)");
+      if (userCity) {
+        setCity(userCity);
+        localStorage.setItem("city", userCity);
+      }
+    }
+  }, [city]);
+
+  return (
+    <>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        {/* 🌙/☀️ Theme Button */}
+        <Tooltip title={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}>
+          <IconButton
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            sx={{ color: theme === "light" ? "#d4af37" : "#fff" }}
+          >
+            {theme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+          </IconButton>
+        </Tooltip>
+
+        {/* 🟢 Auto Switch */}
+        <Tooltip title="Auto theme by prayer time">
+          <Switch
+            checked={autoMode}
+            onChange={(e) => setAutoMode(e.target.checked)}
+            color="success"
+          />
+        </Tooltip>
+
+        {/* 🔔 Azan Reminder */}
+        <Tooltip title="Silent Azan Reminder">
+          <IconButton
+            onClick={() => setAzanNotify(!azanNotify)}
+            sx={{ color: azanNotify ? "#d4af37" : "#ccc" }}
+          >
+            {azanNotify ? <NotificationsActiveIcon /> : <NotificationsNoneIcon />}
+          </IconButton>
+        </Tooltip>
+
+        {/* 📍 City Display */}
+        <Typography sx={{ color: "#fff", display: "flex", alignItems: "center" }}>
+          <LocationOnIcon fontSize="small" /> {city || "City not set"}
+        </Typography>
+      </Box>
+
+      {/* 🔔 Popup */}
+      {popup && <div className="azan-popup">{popup}</div>}
+    </>
+  );
+}

@@ -1,0 +1,249 @@
+/* ======================================================
+   ✅ theme.css — D:\AlMustafaApp\frontend\src\styles\theme.css
+   Al Mustafa App — Ultimate Global Theme
+   Premium Green + Gold + Blue attention palette
+   Responsive, Accessible, RTL-ready, Smart Theme + Silent Azan Reminder
+   ====================================================== */
+
+/* ---------- ROOT TOKENS ---------- */
+:root {
+  --primary-green: #0b3d0b;
+  --primary-gold: #d4af37;
+  --accent-blue:  #007bff;
+  --accent-teal:  #00bfa6;
+  --accent-rose:  #e55353;
+
+  --bg-start: #f7fff7;
+  --bg-end:   #eafae7;
+  --text-main: #0b3d0b;
+  --muted: #667085;
+
+  --card-radius: 14px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+
+  --shadow-1: 0 4px 15px rgba(0,0,0,0.08);
+  --shadow-2: 0 6px 25px rgba(212,175,55,0.15);
+  --glass: rgba(255,255,255,0.6);
+  --transition: all 0.28s ease-in-out;
+  --fs-sm: 13px;
+  --fs-md: 15px;
+  --fs-lg: 18px;
+}
+
+/* ---------- GLOBAL ---------- */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+  font-family: "Poppins", "Noto Naskh Arabic", sans-serif;
+  color: var(--text-main);
+  overflow-x: hidden;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------- LINKS ---------- */
+a { color: var(--accent-blue); text-decoration: none; transition: color 0.25s; }
+a:hover { color: var(--primary-green); }
+
+/* ---------- BUTTONS ---------- */
+button, .MuiButton-root {
+  background-color: var(--primary-gold) !important;
+  color: var(--primary-green) !important;
+  border-radius: var(--radius-md) !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  transition: var(--transition) !important;
+  box-shadow: var(--shadow-1);
+}
+button:hover, .MuiButton-root:hover {
+  background-color: var(--primary-green) !important;
+  color: var(--primary-gold) !important;
+  transform: translateY(-2px);
+}
+
+/* ---------- APP BAR ---------- */
+.MuiAppBar-root {
+  background: rgba(11,61,11,0.94) !important;
+  color: var(--primary-gold) !important;
+  border-bottom: 2px solid var(--primary-gold);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-2);
+}
+.MuiAppBar-root .MuiTypography-root {
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+/* ---------- BOTTOM NAVIGATION ---------- */
+.MuiBottomNavigation-root {
+  background: var(--glass) !important;
+  border-top: 2px solid var(--primary-gold);
+  backdrop-filter: blur(6px);
+  padding: 6px 10px;
+  box-shadow: 0 -6px 20px rgba(0,0,0,0.06);
+}
+.MuiBottomNavigationAction-root {
+  color: #555 !important;
+  transition: var(--transition);
+  border-radius: 10px;
+  min-width: 68px;
+}
+.MuiBottomNavigationAction-root.Mui-selected {
+  background: var(--accent-blue) !important;
+  color: #fff !important;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,123,255,0.18);
+}
+
+/* ---------- CARDS ---------- */
+.card {
+  background: #fff;
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-1);
+  transition: var(--transition);
+  overflow: hidden;
+}
+.card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: var(--shadow-2);
+}
+
+/* ---------- VIDEO STYLING ---------- */
+.video-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+}
+video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+video:active { transform: scale(0.997); }
+
+/* 🎥 Right-side action bar */
+.video-actions-right {
+  position: absolute;
+  right: 14px;
+  bottom: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+  z-index: 15;
+}
+.video-actions-right .action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.video-actions-right .action:hover { transform: translateY(-5px); }
+
+/* Image post actions */
+.image-post-actions {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+/* ---------- TYPOGRAPHY ---------- */
+.h1 { font-size: 28px; font-weight: 700; color: var(--primary-green); }
+.muted { color: var(--muted); font-size: var(--fs-sm); }
+
+/* ---------- UTILITY ---------- */
+.container { max-width: 1100px; margin: 0 auto; padding: 16px; }
+.row { display: flex; gap: 16px; align-items: center; }
+.center { display: flex; justify-content: center; align-items: center; }
+.hide-mobile { display: block; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .video-actions-right { right: 8px; bottom: 70px; gap: 14px; }
+  .container { padding: 12px; }
+}
+@media (max-width: 480px) {
+  .video-actions-right { right: 6px; bottom: 60px; gap: 12px; }
+  .h1 { font-size: 22px; }
+  .hide-mobile { display: none; }
+}
+
+/* ---------- ACCESSIBILITY ---------- */
+button:focus, a:focus, .MuiButton-root:focus {
+  outline: 3px solid rgba(212,175,55,0.2);
+  outline-offset: 2px;
+}
+
+/* ---------- THEMES ---------- */
+body[data-theme="dark"] {
+  --bg-start: #07110a;
+  --bg-end: #05100b;
+  --text-main: #e9f6ec;
+  --primary-green: #93c47d;
+  background: linear-gradient(180deg,#07110a 0%, #05100b 100%);
+}
+[data-theme="dark"] .card {
+  background: rgba(10,14,10,0.6);
+  box-shadow: none;
+  color: var(--text-main);
+}
+
+/* ---------- ATTENTION PALETTES ---------- */
+body[data-palette="promo"] {
+  --accent-blue: var(--accent-teal);
+  --primary-gold: #ffc857;
+}
+body[data-palette="urgent"] {
+  --accent-blue: var(--accent-rose);
+  --bg-start: #fff6f6;
+  --bg-end: #fff0f0;
+}
+
+/* ---------- RTL SUPPORT ---------- */
+[dir="rtl"] { direction: rtl; }
+[dir="rtl"] .row { flex-direction: row-reverse; }
+[dir="rtl"] .video-actions-right { right: auto; left: 12px; }
+[dir="rtl"] .video-meta { left: auto; right: 14px; text-align: right; }
+
+/* ---------- HIGH CONTRAST ---------- */
+.high-contrast {
+  background: var(--primary-green) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25) !important;
+}
+
+/* ---------- 🔔 Silent Azan Reminder Popup ---------- */
+.azan-popup {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  background: rgba(11,61,11,0.9);
+  color: #fff;
+  border: 2px solid var(--primary-gold);
+  padding: 12px 18px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  font-weight: 600;
+  animation: fadeInOut 8s ease forwards;
+  z-index: 9999;
+}
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(20px); }
+  10%, 90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(20px); }
+}

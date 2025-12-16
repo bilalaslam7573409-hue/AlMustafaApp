@@ -1,0 +1,234 @@
+/* ======================================================
+   ✅ theme.css — D:\AlMustafaApp\frontend\src\styles\theme.css
+   Al Mustafa App — Main design tokens & global styles
+   (Green + Gold premium theme, responsive, animated)
+   ====================================================== */
+
+/* ---------- Design tokens ---------- */
+:root{
+  --primary-green: #0b3d0b;
+  --primary-gold:  #d4af37;
+  --accent-blue:   #007bff;
+  --bg-start:      #f7fff7;
+  --bg-end:        #eafae7;
+  --text-main:     #0b3d0b;
+  --muted:         #667085;
+  --card-radius:   14px;
+  --shadow-1:      0 4px 15px rgba(0,0,0,0.08);
+  --shadow-2:      0 6px 25px rgba(212,175,55,0.12);
+  --glass:         rgba(255,255,255,0.6);
+  --transition:    all 0.28s ease;
+}
+
+/* ---------- Global ---------- */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body{
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+  font-family: "Poppins", "Noto Naskh Arabic", sans-serif;
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  line-height: 1.45;
+}
+
+/* Links & small text */
+a { color: var(--primary-green); text-decoration: none; }
+small { color: var(--muted); }
+
+/* ---------- Buttons (global) ---------- */
+button, .MuiButton-root {
+  background-color: var(--primary-gold) !important;
+  color: var(--primary-green) !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  transition: var(--transition) !important;
+  box-shadow: var(--shadow-1);
+}
+button:hover, .MuiButton-root:hover {
+  background-color: var(--primary-green) !important;
+  color: var(--primary-gold) !important;
+  transform: translateY(-2px);
+}
+
+/* Small neutral buttons (outline) */
+.btn-outline {
+  background: transparent !important;
+  border: 1px solid rgba(11,61,11,0.08) !important;
+  color: var(--primary-green) !important;
+}
+
+/* ---------- Top AppBar (Material UI) ---------- */
+.MuiAppBar-root {
+  background: rgba(11,61,11,0.94) !important;
+  color: var(--primary-gold) !important;
+  border-bottom: 2px solid var(--primary-gold);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-2) !important;
+}
+
+/* AppBar inner typography tweaks */
+.MuiAppBar-root .MuiTypography-root {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+/* ---------- Bottom navigation (Material UI) ---------- */
+/* Default: neutral look (white / translucent), selected item -> blue background + white icon */
+.MuiBottomNavigation-root {
+  background: var(--glass) !important;
+  border-top: 2px solid var(--primary-gold);
+  backdrop-filter: blur(6px);
+  padding: 6px 10px;
+  box-shadow: 0 -6px 20px rgba(0,0,0,0.06);
+}
+
+/* Action style: neutral */
+.MuiBottomNavigationAction-root {
+  color: #555 !important;
+  min-width: 68px;
+  max-width: 120px;
+  transition: var(--transition);
+  border-radius: 10px;
+  padding: 6px 8px;
+}
+
+/* Selected behaviour: blue pill & white icon */
+.MuiBottomNavigationAction-root.Mui-selected {
+  background: var(--accent-blue) !important;
+  color: #fff !important;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,123,255,0.15);
+}
+.MuiBottomNavigationAction-root.Mui-selected .MuiSvgIcon-root {
+  color: #fff !important;
+}
+
+/* Label selected */
+.MuiBottomNavigationAction-label.Mui-selected {
+  color: #fff !important;
+  font-weight: 700;
+}
+
+/* ---------- Cards ---------- */
+.card {
+  background: #fff;
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-1);
+  transition: var(--transition);
+  overflow: hidden;
+}
+.card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: var(--shadow-2);
+}
+
+/* ---------- Video card & images ---------- */
+.video-card {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  position: relative;
+}
+video{
+  width: 100%;
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+video:active { transform: scale(0.997); }
+
+/* Overlay info area on video (bottom-left) */
+.video-meta {
+  position: absolute;
+  left: 14px;
+  bottom: 18px;
+  z-index: 12;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+  max-width: 65%;
+}
+
+/* Right-side floating action column for video (TikTok style) */
+.video-actions-right {
+  position: absolute;
+  right: 12px;
+  bottom: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  z-index: 15;
+}
+.video-actions-right .action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+.video-actions-right .action:hover { transform: translateY(-6px); }
+
+/* For image posts: actions horizontally under the media */
+.image-post-actions {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+/* ---------- Utility ---------- */
+.container { max-width: 1100px; margin: 0 auto; padding: 16px; }
+.row { display: flex; gap: 16px; align-items: center; }
+.center { display: flex; justify-content: center; align-items: center; }
+
+/* Text helpers */
+.h1 { font-size: 28px; font-weight: 700; color: var(--primary-green); }
+.muted { color: var(--muted); }
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 900px) {
+  .video-actions-right { right: 8px; bottom: 70px; gap: 14px; }
+  .video-meta { max-width: 70%; left: 12px; bottom: 16px; }
+  .container { padding: 12px; }
+}
+@media (max-width: 480px) {
+  .video-actions-right { right: 6px; bottom: 60px; gap: 12px; }
+  .video-meta { max-width: 75%; left: 10px; bottom: 12px; font-size: 14px; }
+}
+
+/* ---------- Accessibility & focus ---------- */
+button:focus, a:focus, .MuiButton-root:focus {
+  outline: 3px solid rgba(212,175,55,0.15);
+  outline-offset: 2px;
+}
+
+/* ---------- Dark mode support ----------
+   Toggle by setting data-theme="dark" on <html> or <body>
+------------------------------------------- */
+[data-theme="dark"]{
+  --bg-start: #07110a;
+  --bg-end:   #05100b;
+  --text-main:#e9f6ec;
+  --primary-green: #93c47d;
+  --primary-gold:  #d4af37;
+  background: linear-gradient(180deg,#07110a 0%, #05100b 100%);
+}
+[data-theme="dark"] .MuiAppBar-root {
+  background: rgba(3,8,4,0.85) !important;
+  color: var(--primary-gold) !important;
+}
+[data-theme="dark"] .card { background: rgba(6,10,7,0.45); box-shadow: none; color: var(--text-main); }
+
+/* ---------- Small helpers for testing / dev ---------- */
+.hide-mobile { display: block; }
+@media (max-width: 600px) { .hide-mobile { display: none; } }
